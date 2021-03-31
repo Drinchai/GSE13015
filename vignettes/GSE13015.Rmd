@@ -19,8 +19,11 @@ ExperimentHub.
 ```{r get-expression matrix}
 library(ExperimentHub)
 dat = ExperimentHub()
-query(dat , "GSE13015")
-data_matrix <- dat[[1]]
+res = query(dat , "GSE13015")
+temp = hub[["EH5429"]]
+data_matrix = assay(temp)
+sample_info = data.frame(colData(temp))
+
 ```
 
 # sessionInfo()

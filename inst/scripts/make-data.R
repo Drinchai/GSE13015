@@ -86,9 +86,9 @@ rownames(Phenotipic.characteristics) <- rownames(Phenotipic.data)
 sample_info <- Phenotipic.characteristics
 
 ## Clean up some column in this datasets for future analysis
-sample_info$Illness = gsub(sample.info$Illness,pattern = "/",replacement = "_")
-sample_info$Group = sapply(strsplit(sample.info$Illness,"_",fixed = TRUE),"[",1)
-sample_info$Type = sapply(strsplit(sample.info$Illness,"_",fixed = TRUE),"[",2)
+sample_info$Illness = gsub(sample_info$Illness,pattern = "/",replacement = "_")
+sample_info$Group = sapply(strsplit(sample_info$Illness,"_",fixed = TRUE),"[",1)
+sample_info$Type = sapply(strsplit(sample_info$Illness,"_",fixed = TRUE),"[",2)
 sample_info$GEO_ID = rownames(sample_info)
 
 
@@ -117,12 +117,12 @@ sample_ann= sample_info
 colnames(data_exp)== rownames(sample_ann)  #check ordering
 
 GSE13015_GPL6106 <- SummarizedExperiment(assays=list(counts=data_exp),
-                                        colData=DataFrame(SampleID=sample_ann$SampleID,
-                                                          Age=sample_ann$Age,
-                                                          Gender=sample_ann$Gender,
-                                                          Group_test=sample_ann$Group,
-                                                          illness=sample_ann$Illness),
-                                        rowData = DataFrame(Gene=rownames(data_exp)))
+                                         colData=DataFrame(SampleID=sample_ann$GEO_ID,
+                                                           Age=sample_ann$Age,
+                                                           Gender=sample_ann$Gender,
+                                                           Group_test=sample_ann$Group,
+                                                           illness=sample_ann$Illness),
+                                         rowData = DataFrame(Gene=rownames(data_exp)))
 
 save(GSE13015_GPL6106,
-     file="GSE13015_GPL6106_QN_PAL10.Rda")
+     file="GSE13015_GPL6106_SummarizedExperiment.Rda")
